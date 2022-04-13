@@ -1,5 +1,6 @@
 package baseball.domain;
 
+import camp.nextstep.edu.missionutils.Console;
 import camp.nextstep.edu.missionutils.Randoms;
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -12,6 +13,7 @@ public class Game {
     private int gameStatus;
     private int strikeCount;
     private int ballCount;
+    private Player player;
 
     public Game() {
         numbers = new ArrayList<>();
@@ -23,6 +25,14 @@ public class Game {
         return numbers;
     }
 
+    public int getGameStatus() {
+        return gameStatus;
+    }
+
+    public void setGameStatus(int gameStatus) {
+        this.gameStatus = gameStatus;
+    }
+
     private void generateRandomNumbers() {
         Set<Integer> noDuplicateNumbers = new HashSet<>();
         while (noDuplicateNumbers.size() < MAX_SIZE) {
@@ -32,47 +42,65 @@ public class Game {
         this.numbers.addAll(noDuplicateNumbers);
     }
 
-    public int getGameStatus() {
-        return gameStatus;
+    public void playBall() {
+        System.out.print("숫자를 입력해주세요 : ");
+        String inputNumbers = Console.readLine();
+        this.player = new Player();
+        this.player.setNumbers(inputNumbers);
     }
 
-    public void setGameStatus(int gameStatus) {
-        this.gameStatus = gameStatus;
+    public int end() {
+        int choice = 1;
+        if (this.gameStatus == 2) {
+            System.out.println("3개의 숫자를 모두 맞히셨습니다! 게임 종료");
+            System.out.println("게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.");
+            choice = Integer.parseInt(Console.readLine());
+        }
+        return choice;
     }
-
-    public void getHintMessage(Player player) {
-        String message = "";
+    public String getGameResultMessage() {
         ballCount = 0;
         strikeCount = 0;
-
-        List<Integer> playerNumbers = player.getNumbers();
         for (int i = 0; i < MAX_SIZE; i++) {
-            int number = this.numbers.get(i);
-            if (playerNumbers.contains(number)) {
-                if (playerNumbers.indexOf(number) != i) {
-                    ballCount++;
-                }
-            }
-        }
-        if (ballCount > 0) {
-            message += (ballCount + "볼 ");
-        }
-
-        for (int j = 0; j < MAX_SIZE; j++) {
-            if (this.numbers.get(j).equals(playerNumbers.get(j))) {
-                strikeCount++;
-            }
+            checkBaseballRule(numbers, this.player.getNumbers(), i);
         }
         if (strikeCount == 3) {
-            this.gameStatus = 2;
+            gameStatus = 2;
+        }
+        return getHintMessage();
+    }
+
+    private String getHintMessage() {
+        String message = "";
+        if (ballCount > 0) {
+            message += (ballCount + "볼 ");
         }
         if (strikeCount > 0) {
             message += (strikeCount + "스트라이크");
         }
-
         if (ballCount == 0 && strikeCount == 0) {
-            message += "낫싱";
+            return "낫싱";
         }
-        System.out.println(message);
+        return message;
+    }
+
+    private void checkBaseballRule(List<Integer> ComputerNumbers, List<Integer> playerNumbers, int index) {
+        int number = ComputerNumbers.get(index);
+        if (playerNumbers.contains(number)) {
+            checkStrikeCount(playerNumbers, index, number);
+            checkBallCount(playerNumbers, index, number);
+        }
+    }
+
+    private void checkBallCount(List<Integer> playerNumbers, int index, int number) {
+        if (playerNumbers.indexOf(number) != index) {
+            ballCount++;
+        }
+    }
+
+    private void checkStrikeCount(List<Integer> playerNumbers, int index, int number) {
+        if (playerNumbers.indexOf(number) == index) {
+            strikeCount++;
+        }
     }
 }
