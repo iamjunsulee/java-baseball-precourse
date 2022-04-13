@@ -1,5 +1,7 @@
 package baseball.domain;
 
+import baseball.ui.GameResult;
+import baseball.ui.GameStatus;
 import baseball.ui.Message;
 import camp.nextstep.edu.missionutils.Console;
 import camp.nextstep.edu.missionutils.Randoms;

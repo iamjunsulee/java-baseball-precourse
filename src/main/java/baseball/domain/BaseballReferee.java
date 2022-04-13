@@ -1,5 +1,6 @@
 package baseball.domain;
 
+import baseball.ui.GameResult;
 import java.util.List;
 
 /*

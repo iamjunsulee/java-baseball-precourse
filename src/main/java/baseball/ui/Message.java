@@ -1,7 +1,5 @@
 package baseball.ui;
 
-import baseball.domain.GameResult;
-
 public class Message {
     private final GameResult gameResult;
 

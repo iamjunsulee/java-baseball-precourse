@@ -1,4 +1,4 @@
-package baseball.domain;
+package baseball.ui;
 
 /*
 경기 결과
