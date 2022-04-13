@@ -6,7 +6,6 @@ import java.util.List;
 
 public class Player {
     private final List<Integer> numbers;
-    private final static int MAX_SIZE = 3;
 
     public Player() {
         numbers = new ArrayList<>();
