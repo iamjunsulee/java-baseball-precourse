@@ -41,7 +41,6 @@ public class Game {
             noDuplicateNumbers.add(randomNumber);
         }
         this.numbers.addAll(noDuplicateNumbers);
-        System.out.println("Computer : " + numbers);
     }
 
     public void playBall() {
