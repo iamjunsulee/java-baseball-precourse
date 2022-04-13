@@ -25,7 +25,8 @@ public class PlayerTest {
         assertThatThrownBy(() -> {
             Player player = new Player();
             player.setNumbers(numbers);
-        }).isInstanceOf(IllegalArgumentException.class);
+        }).isInstanceOf(IllegalArgumentException.class)
+                .hasMessageContainingAll("3자리수를 입력해야 합니다.");
     }
 
     @ParameterizedTest
@@ -35,6 +36,18 @@ public class PlayerTest {
         assertThatThrownBy(() -> {
             Player player = new Player();
             player.setNumbers(numbers);
-        }).isInstanceOf(IllegalArgumentException.class);
+        }).isInstanceOf(IllegalArgumentException.class)
+                .hasMessageContainingAll("중복되는 입력값이 있습니다.");
+    }
+
+    @ParameterizedTest
+    @ValueSource(strings = {"kkk", "1kk", "11k"})
+    @DisplayName("init player number format test")
+    void init_player_number_format_test(String numbers) {
+        assertThatThrownBy(() -> {
+            Player player = new Player();
+            player.setNumbers(numbers);
+        }).isInstanceOf(IllegalArgumentException.class)
+                .hasMessageContainingAll("숫자만 입력가능합니다.");
     }
 }
