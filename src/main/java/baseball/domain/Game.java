@@ -6,9 +6,7 @@ import baseball.ui.Message;
 import camp.nextstep.edu.missionutils.Console;
 import camp.nextstep.edu.missionutils.Randoms;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 public class Game {
     private final List<Integer> numbers;
@@ -35,12 +33,16 @@ public class Game {
     }
 
     private void generateRandomNumbers() {
-        Set<Integer> noDuplicateNumbers = new HashSet<>();
-        while (noDuplicateNumbers.size() < MAX_SIZE) {
-            int randomNumber = Randoms.pickNumberInRange(1, 9);
-            noDuplicateNumbers.add(randomNumber);
+        while (this.numbers.size() < MAX_SIZE) {
+            addNumbers();
         }
-        this.numbers.addAll(noDuplicateNumbers);
+    }
+
+    private void addNumbers() {
+        int randomNumber = Randoms.pickNumberInRange(1, 9);
+        if (!this.numbers.contains(randomNumber)) {
+            this.numbers.add(randomNumber);
+        }
     }
 
     public void playBall() {
