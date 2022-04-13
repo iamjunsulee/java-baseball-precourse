@@ -32,6 +32,7 @@ class BaseballRefereeTest {
         GameResult result = baseballReferee.judge();
 
         assertThat(result.getStrikeCount()).isEqualTo(3);
+        assertThat(result.getBallCount()).isEqualTo(0);
     }
 
     @Test
@@ -75,6 +76,22 @@ class BaseballRefereeTest {
         BaseballReferee baseballReferee = new BaseballReferee(computerNumbers, playerNumbers);
         GameResult result = baseballReferee.judge();
 
+        assertThat(result.getStrikeCount()).isEqualTo(0);
         assertThat(result.getBallCount()).isEqualTo(3);
+    }
+
+    @Test
+    @DisplayName("nothing test")
+    void nothing_test() {
+        List<Integer> playerNumbers = new ArrayList<>();
+        playerNumbers.add(4);
+        playerNumbers.add(5);
+        playerNumbers.add(6);
+
+        BaseballReferee baseballReferee = new BaseballReferee(computerNumbers, playerNumbers);
+        GameResult result = baseballReferee.judge();
+
+        assertThat(result.getStrikeCount()).isEqualTo(0);
+        assertThat(result.getBallCount()).isEqualTo(0);
     }
 }
