@@ -17,6 +17,10 @@ public class Player {
 
     public void setNumbers(String inputNumbers) {
         ValidationUtils.validateNumbers(inputNumbers);
+        addNumbers(inputNumbers);
+    }
+
+    private void addNumbers(String inputNumbers) {
         for (char input : inputNumbers.toCharArray()) {
             int number = Integer.parseInt(String.valueOf(input));
             this.numbers.add(number);

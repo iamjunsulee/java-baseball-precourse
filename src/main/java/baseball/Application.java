@@ -8,7 +8,7 @@ public class Application {
         int isContinue = game.getGameStatus();
         while (isContinue == 1) {
             game.playBall();
-            System.out.println(game.getGameResultMessage());
+            game.playOn();
             isContinue = game.end();
             if (game.getGameStatus() == 2 && isContinue == 1) {
                 game = new Game();

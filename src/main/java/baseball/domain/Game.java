@@ -1,5 +1,6 @@
 package baseball.domain;
 
+import baseball.ui.Message;
 import camp.nextstep.edu.missionutils.Console;
 import camp.nextstep.edu.missionutils.Randoms;
 import java.util.ArrayList;
@@ -11,8 +12,6 @@ public class Game {
     private final List<Integer> numbers;
     private final static int MAX_SIZE = 3;
     private int gameStatus;
-    private int strikeCount;
-    private int ballCount;
     private Player player;
 
     public Game() {
@@ -40,6 +39,7 @@ public class Game {
             noDuplicateNumbers.add(randomNumber);
         }
         this.numbers.addAll(noDuplicateNumbers);
+        System.out.println("Computer : " + numbers);
     }
 
     public void playBall() {
@@ -47,6 +47,16 @@ public class Game {
         String inputNumbers = Console.readLine();
         this.player = new Player();
         this.player.setNumbers(inputNumbers);
+    }
+
+    public void playOn() {
+        BaseballReferee baseballReferee = new BaseballReferee(this.numbers, this.player.getNumbers());
+        GameResult gameResult = baseballReferee.judge();
+        Message message = new Message(gameResult);
+        message.printHintMessage();
+        if (gameResult.isStrikeOut()) {
+            this.gameStatus = 2;
+        }
     }
 
     public int end() {
@@ -57,50 +67,5 @@ public class Game {
             choice = Integer.parseInt(Console.readLine());
         }
         return choice;
-    }
-    public String getGameResultMessage() {
-        ballCount = 0;
-        strikeCount = 0;
-        for (int i = 0; i < MAX_SIZE; i++) {
-            checkBaseballRule(numbers, this.player.getNumbers(), i);
-        }
-        if (strikeCount == 3) {
-            gameStatus = 2;
-        }
-        return getHintMessage();
-    }
-
-    private String getHintMessage() {
-        String message = "";
-        if (ballCount > 0) {
-            message += (ballCount + "볼 ");
-        }
-        if (strikeCount > 0) {
-            message += (strikeCount + "스트라이크");
-        }
-        if (ballCount == 0 && strikeCount == 0) {
-            return "낫싱";
-        }
-        return message;
-    }
-
-    private void checkBaseballRule(List<Integer> ComputerNumbers, List<Integer> playerNumbers, int index) {
-        int number = ComputerNumbers.get(index);
-        if (playerNumbers.contains(number)) {
-            checkStrikeCount(playerNumbers, index, number);
-            checkBallCount(playerNumbers, index, number);
-        }
-    }
-
-    private void checkBallCount(List<Integer> playerNumbers, int index, int number) {
-        if (playerNumbers.indexOf(number) != index) {
-            ballCount++;
-        }
-    }
-
-    private void checkStrikeCount(List<Integer> playerNumbers, int index, int number) {
-        if (playerNumbers.indexOf(number) == index) {
-            strikeCount++;
-        }
     }
 }
