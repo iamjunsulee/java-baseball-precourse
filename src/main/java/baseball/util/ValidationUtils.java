@@ -7,6 +7,7 @@ public class ValidationUtils {
     private final static int MAX_SIZE = 3;
 
     public static void validateNumbers(String inputNumbers) {
+        checkNumberFormat(inputNumbers);
         checkSize(inputNumbers);
         checkDuplicateNumbers(inputNumbers);
     }
@@ -25,6 +26,12 @@ public class ValidationUtils {
         }
         if (noDuplicateNumbers.size() != MAX_SIZE) {
             throw new IllegalArgumentException("중복되는 입력값이 있습니다.");
+        }
+    }
+
+    private static void checkNumberFormat(String inputNumbers) {
+        if (!inputNumbers.matches("^[0-9]*$")) {
+            throw new IllegalArgumentException("숫자만 입력가능합니다.");
         }
     }
 }
