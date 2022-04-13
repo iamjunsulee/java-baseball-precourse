@@ -4,15 +4,11 @@ import baseball.domain.Game;
 
 public class Application {
     public static void main(String[] args) {
-        Game game = new Game();
-        int isContinue = game.getGameStatus();
-        while (isContinue == 1) {
+        boolean isContinue = true;
+        while (isContinue) {
+            Game game = new Game();
             game.playBall();
-            game.playOn();
-            isContinue = game.end();
-            if (game.getGameStatus() == 2 && isContinue == 1) {
-                game = new Game();
-            }
+            isContinue = game.endGame();
         }
     }
 }
