@@ -15,15 +15,13 @@ public class Message {
 
     private String getHintMessage() {
         String message = "";
-        int ballCount = gameResult.getBallCount();
-        int strikeCount = gameResult.getStrikeCount();
-        if (ballCount > 0) {
-            message += (ballCount + "볼 ");
+        if (gameResult.isBall()) {
+            message += (gameResult.getBallCount() + "볼 ");
         }
-        if (strikeCount > 0) {
-            message += (strikeCount + "스트라이크");
+        if (gameResult.isStrike()) {
+            message += (gameResult.getStrikeCount() + "스트라이크");
         }
-        if (ballCount == 0 && strikeCount == 0) {
+        if (gameResult.isNothing()) {
             return "낫싱";
         }
         return message;

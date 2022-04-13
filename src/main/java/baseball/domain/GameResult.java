@@ -23,4 +23,16 @@ public class GameResult {
     public boolean isStrikeOut() {
         return strikeCount == 3;
     }
+
+    public boolean isNothing() {
+        return strikeCount == 0 && ballCount == 0;
+    }
+
+    public boolean isStrike() {
+        return strikeCount > 0;
+    }
+
+    public boolean isBall() {
+        return ballCount > 0;
+    }
 }
