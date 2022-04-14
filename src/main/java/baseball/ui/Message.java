@@ -13,14 +13,24 @@ public class Message {
 
     private String getHintMessage() {
         String message = "";
+        message = getBallMessage(message);
+        message = getStrikeMessage(message);
+        if (gameResult.isNothing()) {
+            return "낫싱";
+        }
+        return message;
+    }
+
+    private String getBallMessage(String message) {
         if (gameResult.isBall()) {
             message += (gameResult.getBallCount() + "볼 ");
         }
+        return message;
+    }
+
+    private String getStrikeMessage(String message) {
         if (gameResult.isStrike()) {
             message += (gameResult.getStrikeCount() + "스트라이크");
-        }
-        if (gameResult.isNothing()) {
-            return "낫싱";
         }
         return message;
     }
