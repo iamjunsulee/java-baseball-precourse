@@ -3,13 +3,10 @@ package baseball.domain;
 import baseball.ui.GameResult;
 import java.util.List;
 
-/*
-야구 심판 - 스트라이크, 볼을 판정한다.
- */
 public class BaseballReferee {
+    private static final int MAX_SIZE = 3;
     private final List<Integer> computerNumbers;
     private final List<Integer> playerNumbers;
-    private final static int MAX_SIZE = 3;
 
     public BaseballReferee(List<Integer> computerNumbers, List<Integer> playerNumbers) {
         this.computerNumbers = computerNumbers;

@@ -9,10 +9,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Game {
-    private final List<Integer> numbers;
-    private final static int MAX_SIZE = 3;
+    public static final int MIN_VALUE = 1;
+    public static final int MAX_VALUE = 9;
+    private static final int MAX_SIZE = 3;
     private GameStatus gameStatus;
     private Player player;
+    private final List<Integer> numbers;
 
     public Game() {
         numbers = new ArrayList<>();
@@ -39,7 +41,7 @@ public class Game {
     }
 
     private void addNumbers() {
-        int randomNumber = Randoms.pickNumberInRange(1, 9);
+        int randomNumber = Randoms.pickNumberInRange(MIN_VALUE, MAX_VALUE);
         if (!this.numbers.contains(randomNumber)) {
             this.numbers.add(randomNumber);
         }
@@ -68,6 +70,6 @@ public class Game {
 
     public boolean endGame() {
         Message.printEndMessage();
-        return Integer.parseInt(Console.readLine()) == 1;
+        return Integer.parseInt(Console.readLine()) == GameStatus.GAME_START.getValue();
     }
 }
